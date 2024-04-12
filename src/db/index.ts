@@ -9,7 +9,7 @@ import * as schema from './schema'
 
 // for query purposes
 const queryClient = postgres(process.env.DATABASE_URL!)
-const db = drizzle(queryClient,{schema})
+const db = drizzle(queryClient, { schema })
 // await db.select().from(...)...
 
 export { db }
