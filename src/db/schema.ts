@@ -68,7 +68,7 @@ export const testing = pgTable('testing', {
 
 export const room = pgTable('room', {
   id: uuid('id')
-    .default(sql`gen_random_uuid`)
+    .default(sql`gen_random_uuid()`)
     .notNull()
     .primaryKey(),
   userId: text('userId')
