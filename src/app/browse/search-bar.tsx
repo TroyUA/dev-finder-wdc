@@ -39,9 +39,9 @@ export function SearchBar() {
 
   async function onSubmit({ search }: z.infer<typeof formSchema>) {
     if (search) {
-      router.push(`/?search=${search}`)
+      router.push(`/browse/?search=${search}`)
     } else {
-      router.push('/')
+      router.push('/browse')
     }
   }
 
@@ -74,7 +74,7 @@ export function SearchBar() {
             variant="link"
             onClick={() => {
               form.setValue('search', '')
-              router.push('/')
+              router.push('/browse')
             }}
           >
             Clear

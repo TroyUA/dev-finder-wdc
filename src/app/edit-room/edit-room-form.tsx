@@ -15,34 +15,35 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useRouter } from 'next/navigation'
-import { createRoomAction } from './actions'
+import { Room } from '@/db/schema'
+import { useParams, useRouter } from 'next/navigation'
+import { editRoomAction } from './actions'
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
-  description: z.string().min(1).max(250),
+  description: z.string().min(0).max(250),
   tags: z.string().min(1).max(50),
-  githubRepo: z.string().min(1).max(50),
+  githubRepo: z.string().min(0).max(50),
 })
 
-export function CreateRoomForm() {
+export function EditRoomForm({ room }: { room: Room }) {
   const router = useRouter()
+  const params = useParams()
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      tags: '',
-      githubRepo: '',
+      name: room.name,
+      description: room.description ?? '',
+      tags: room.tags,
+      githubRepo: room.githubRepo ?? '',
     },
   })
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Invoke a server action to store the data in our database
-    await createRoomAction(values)
-    router.push('/your-rooms')
+    await editRoomAction({ ...values, id: params.roomId as string })
   }
 
   return (
