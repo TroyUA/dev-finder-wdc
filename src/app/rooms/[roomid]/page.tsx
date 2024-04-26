@@ -2,7 +2,7 @@ import { getRoom } from '@/data-access/rooms'
 import { Github } from 'lucide-react'
 import Link from 'next/link'
 import { TagsList } from '@/components/tags-list'
-import { DevFinderVideo } from '../video-player'
+import { DevFinderVideo } from './video-player'
 import { splitTags } from '@/lib/utils'
 import { unstable_noStore as noStore } from 'next/cache'
 
